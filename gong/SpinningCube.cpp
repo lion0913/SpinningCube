@@ -60,7 +60,6 @@ void colorcube()
 	quad(5, 4, 0, 1);
 }
 
-// Array of rotation angles (in degrees) for each coordinate axis
 GLfloat theta[3] = { 0.0, 0.0, 0.0 }; 
 GLfloat Theta;
 int axis = 0;
@@ -93,12 +92,10 @@ void display() {
 void init() {
 	colorcube();
 
-	// Create a vertex array object
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
-	// Create and initialize a buffer object
 	GLuint buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
@@ -106,11 +103,9 @@ void init() {
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(points), points);
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(points), sizeof(colors), colors);
 
-	// Load shaders and use the resulting shader program
 	GLuint program = InitShader("vshader.glsl", "fshader.glsl");
 	glUseProgram(program);
 
-	// set up vertex arrays
 	GLuint vPosition = glGetAttribLocation(program, "vPosition");
 	glEnableVertexAttribArray(vPosition);
 	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
